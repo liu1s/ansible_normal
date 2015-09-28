@@ -1,0 +1,7 @@
+---
+#roles/base_service/tasks/main.yml
+
+- name: "install apt_service_install_list"
+  apt: pkg={{ item }}
+       state=present
+  with_items: "{{apt_service_install_list}}"

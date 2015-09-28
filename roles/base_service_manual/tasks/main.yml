@@ -1,0 +1,17 @@
+---
+#roles/base_service/tasks/main.yml
+
+- name: "copy install shell"
+  copy: src={{ item }} dest={{ script_dir }}/{{ item }}
+            owner={{ install_user }}
+            group={{ install_user }}
+            mode=0744
+  with_items:
+    - install_mysql.sh
+    - install_redis.sh
+
+- name: "install"
+  shell: bash {{ script_dir }}/{{ item }} {{ download_dir }}
+  with_items:
+    - install_mysql.sh
+    - install_redis.sh

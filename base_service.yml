@@ -1,0 +1,14 @@
+---
+- name: base_service
+  hosts: all
+  sudo: yes
+  remote_user: vagrant
+  roles:
+    - base_service
+
+- name: base_service_manual
+  hosts: all
+  sudo: yes
+  remote_user: vagrant
+  roles:
+    - base_service_manual

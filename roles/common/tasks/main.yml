@@ -1,0 +1,101 @@
+---
+#roles/common/tasks/main.yml
+
+- name: "set hosts"
+  copy: src=hosts
+        dest=/etc/hosts
+
+- name: "adjust locale"
+  copy: src=locale
+        dest=/etc/default/locale
+
+- name: "adjust timezone"
+  file: src=/usr/share/zoneinfo/Asia/Shanghai
+        dest=/etc/localtime
+        force=yes
+        state=link
+
+- name: "replacing apt sources.list"
+  copy: src=sources.list dest=/etc/apt/sources.list
+
+- name: "update apt cache"
+  apt: update_cache=yes
+
+#- name: full upgrade system
+#  apt: upgrade=full
+
+- name: "install yum"
+  apt: pkg=yum
+       state=present
+
+- name: "install git-core"
+  apt: pkg=git-core
+       state=present
+
+- name: "install autoconf"
+  apt: pkg=autoconf
+       state=present
+
+- name: "install vim"
+  apt: pkg=vim
+       state=present
+
+- name: "install libcurl4-gnutls-dev"
+  apt: pkg=libcurl4-gnutls-dev
+       state=present
+
+- name: "install g++"
+  apt: pkg=g++
+       state=present
+
+- name: "install unzip"
+  apt: pkg=unzip
+       state=present
+
+- name: "install make"
+  apt: pkg=make
+       state=present
+
+- name: "install libxml2-dev"
+  apt: pkg=libxml2-dev
+       state=present
+
+- name: "install libpcre++-dev"
+  apt: pkg=libpcre++-dev
+       state=present
+
+- name: "install libjpeg8-dev"
+  apt: pkg=libjpeg8-dev
+       state=present
+
+- name: "install libpng12-dev"
+  apt: pkg=libpng12-dev
+       state=present
+
+- name: "install libfreetype6-dev"
+  apt: pkg=libfreetype6-dev
+       state=present
+
+- name: "install uuid-dev"
+  apt: pkg=uuid-dev
+       state=present
+
+- name: "install libtool"
+  apt: pkg=libtool
+       state=present
+
+- name: "install libncurses5-dev"
+  apt: pkg=libncurses5-dev
+       state=present
+
+- name: "install re2c"
+  apt: pkg=re2c
+       state=present
+
+- name: "install subversion"
+  apt: pkg=subversion
+       state=present
+
+- name: "install cmake"
+  apt: pkg=cmake
+       state=present

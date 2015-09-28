@@ -1,0 +1,14 @@
+---
+- name: "install libmcrypt4 lib"
+  apt: name=libmcrypt4 state=present
+
+
+- name: "install php5-mcrypt lib"
+  apt: name=php5-mcrypt state=present
+
+#- name: "replace fpm.broker.conf"
+#  template: src=fpm.broker.conf
+#        dest=/usr/local/php/etc/fpm.d/fpm.broker.conf
+#        owner=root
+#        group=root
+#        mode=0644

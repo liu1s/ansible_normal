@@ -1,0 +1,30 @@
+---
+#roles/php/tasks/main.yml
+
+- name: "install openssl lib"
+  apt: name=libcurl4-openssl-dev state=present
+
+- name: "install pkg-config lib"
+  apt: name=pkg-config state=present
+
+- name: "install libmcrypt4 lib"
+  apt: name=libmcrypt4 state=present
+
+- name: "install php5-mcrypt lib"
+  apt: name=php5-mcrypt state=present
+
+- name: "install libmcrypt-dev lib"
+  apt: name=libmcrypt-dev state=present
+
+- name: "copy install php shell"
+  copy: src={{ item }} dest={{ script_dir }}/{{ item }}
+            owner={{ install_user }}
+            group={{ install_user }}
+            mode=0744
+  with_items:
+    - install_php.sh
+
+- name: "install"
+  shell: bash {{ script_dir }}/{{ item }} {{ download_dir }}
+  with_items:
+    - install_php.sh

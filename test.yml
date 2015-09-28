@@ -1,0 +1,7 @@
+---
+- name: test
+  hosts: all
+  sudo: yes
+  remote_user: vagrant
+  roles:
+    - test
