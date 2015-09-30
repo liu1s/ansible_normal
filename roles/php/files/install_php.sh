@@ -1,6 +1,6 @@
 #!/bin/sh
 if [ -z $1 ];then
-    echo "please enter the install source path"
+    echo "please enter the download source path"
     exit
 fi
 
@@ -26,7 +26,8 @@ cd php-5.6.13
 
 make && make install;
 
-if [ $? !-eq 0 ];then
-    echo 'install php fail'
-fi    
+run_result=$?
+if [ $run_result -ne 0 ];then
+    exit $run_result
+fi
 

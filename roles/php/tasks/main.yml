@@ -16,6 +16,13 @@
 - name: "install libmcrypt-dev lib"
   apt: name=libmcrypt-dev state=present
 
+- name: install php depend lib
+  apt: name={{ item }} state=present
+  with_items:
+    - libpcre3-dev
+    - gcc
+    - make
+
 - name: "copy install php shell"
   copy: src={{ item }} dest={{ script_dir }}/{{ item }}
             owner={{ install_user }}
@@ -23,8 +30,51 @@
             mode=0744
   with_items:
     - install_php.sh
+    - install_php_ext.sh
+    - install_rabbitmq.sh
+    - install_configman.sh
+    - install_phalcon.sh
 
-- name: "install"
+- name: "install php"
   shell: bash {{ script_dir }}/{{ item }} {{ download_dir }}
   with_items:
     - install_php.sh
+
+- name: "install librabbitmq0 lib"
+  apt: name=librabbitmq0 state=present
+
+- name: "install libmemcached lib"
+  apt: name=libmemcached-dev state=present
+
+- name: "install libsasl2-dev lib"
+  apt: name=libsasl2-dev state=present
+
+- name: "bash install ext part shell"
+  shell: bash {{ script_dir }}/{{ item }} {{ download_dir }}
+  with_items:
+      - install_rabbitmq.sh
+
+#- name: "install ext by shell"
+#  shell: bash {{ script_dir }}/install_php_ext.sh {{ download_dir }} {{ item }}
+#  with_items:
+#    - amqp-1.4.0
+#    - memcached-2.2.0
+#    - memcache-2.2.7
+#    - mongo-1.6.11
+#    - redis-2.2.7
+#    - xhprof-0.9.4
+#    - configman
+#    - phalcon
+
+- name: "copy php config file"
+  template: src={{ item.name }} dest={{ item.dir }}/{{ item.name }}
+            owner={{ install_user }}
+            group={{ install_user }}
+            mode=0744
+  with_items:
+      - { name: 'php.ini', dir: '/usr/local/php/lib/' }
+      - { name: 'php-fpm.conf', dir: '/usr/local/php/etc/' }
+      - { name: 'php-fpm.common.conf', dir: '/usr/local/php/etc/' }
+
+- name: create some file
+  shell: mkdir -p /home/work/logs/php
