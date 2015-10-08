@@ -31,3 +31,4 @@ if [ $run_result -ne 0 ];then
     exit $run_result
 fi
 
+cp /usr/local/php/bin/* /usr/bin/

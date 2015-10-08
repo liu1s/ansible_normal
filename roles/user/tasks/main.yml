@@ -1,44 +1,23 @@
 ---
 #roles/user/tasks/main.yml
 
+#add group
+- group: name={{ work_user }} state=present
+
 #add user
-
-- group: name=work state=present
-
 #密码默认123456
-- user: name=work comment="work" uid=1040 group=work update_password=always password=$6$Ck7YuxCy3YwP6xK$QjsDn4qtYzV32ast95nWG2IrwRKxcbk/THqyfABZSETBVsucL3fH9hZ7rS7nSTbw3a.gvVuBZWSKQMWDJB/Uk0 shell=/bin/bash
+- user: name={{ work_user }} comment={{ work_user }} uid=1040 group={{ work_user }} update_password=always password=$6$Ck7YuxCy3YwP6xK$QjsDn4qtYzV32ast95nWG2IrwRKxcbk/THqyfABZSETBVsucL3fH9hZ7rS7nSTbw3a.gvVuBZWSKQMWDJB/Uk0 shell=/bin/bash
 
-- name: "create user work"
-  shell: chown -R work:work /home/work;
-
-#remove user
-#- user: name=work state=absent remove=yes
-
-- name: "copy vagrant ssh file for user work"
-  shell: mkdir -p /home/work/.ssh;
-         cp -f /home/vagrant/.ssh/authorized_keys /home/work/.ssh/;
-         chown -R work:work /home/work/.ssh;
-
-- name: "copy config dir for user work"
-  shell: cp -rf /home/vagrant/{{ item }} /home/work/;
-         chown -R work:work /home/work/{{ item }};
-  with_items:
-    - .vim
-
-- name: "copy config file for user work"
-  shell: cp -rf /home/vagrant/{{ item }} /home/work/;
-         chown work:work /home/work/{{ item }};
-  with_items:
-    - .bash_history
-    - .bash_logout
-    - .bashrc
-    - .profile
-    - .viminfo
+- name: "create work user"
+  shell: chown -R {{ work_user }}:{{ work_user }} /home/{{ work_user }};
 
 - name: mkdir {{ item }}
   shell: mkdir -p {{ item }};
-         chown {{ install_user }}:{{ install_user }} {{ item }};
+         chown {{ work_user }}:{{ work_user }} {{ item }};
          chmod 777 {{ item }};
   with_items:
     - "{{script_dir}}"
     - "{{download_dir}}"
+
+#remove user
+#- user: name=work state=absent remove=yes

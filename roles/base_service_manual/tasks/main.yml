@@ -3,8 +3,8 @@
 
 - name: "copy install shell"
   copy: src={{ item }} dest={{ script_dir }}/{{ item }}
-            owner={{ install_user }}
-            group={{ install_user }}
+            owner={{ work_user }}
+            group={{ work_user }}
             mode=0744
   with_items:
     - install_mysql.sh

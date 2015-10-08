@@ -1,0 +1,3 @@
+---
+
+apt_service_install_list: [ 'nginx' , 'memcached']

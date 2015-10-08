@@ -1,2 +1,8 @@
 ---
 # 配置替换
+
+- name: "copy rc.local"
+  template: src=rc.local dest=/ect/rc.local
+            owner=root
+            group=root
+            mode=0755

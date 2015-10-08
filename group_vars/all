@@ -1,13 +1,6 @@
 ---
-nginx_user: work
-php_user: work
+#工作用户
+work_user: work
 
-install_user: work
-
-#
 script_dir: /home/work/install/script
 download_dir: /home/work/install/download
-
-mlwl_domain_base: local
-
-apt_service_install_list: [ 'nginx' , 'memcached']

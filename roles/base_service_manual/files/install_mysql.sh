@@ -23,4 +23,9 @@ cd mysql-5.5.45
 #configure mysql
 cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql > cmake.log;
 #if make fail, rm CMakeCache.txt
-make && make install > make.log;
+make > make.log && make install > make_install.log;
+
+run_result=$?
+if [ $run_result -ne 0 ];then
+    exit $run_result
+fi

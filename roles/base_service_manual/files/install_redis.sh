@@ -1,11 +1,11 @@
 #!/bin/sh
 if [ -z $1 ];then
     echo "please enter the download source path"
-    exit
+    exit 0
 fi
 
 if [ -f /usr/local/redis/bin/redis-server ];then
-    exit
+    exit 0
 fi
 
 cd $1
@@ -21,3 +21,8 @@ fi
 cd redis-3.0.4
 
 make PREFIX=/usr/local/redis install > install.log
+
+run_result=$?
+if [ $run_result -ne 0 ];then
+    exit $run_result
+fi

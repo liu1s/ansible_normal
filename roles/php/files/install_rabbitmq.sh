@@ -20,6 +20,9 @@ fi
 
 cd rabbitmq-c-0.5.2
 
+if [ -f has_success_install ];then
+    exit 0
+fi
 
 #if [ ! -d "rabbitmq-c" ];then
 #    git clone git://github.com/alanxz/rabbitmq-c.git;
@@ -35,3 +38,5 @@ run_result=$?
 if [ $run_result -ne 0 ];then
     exit $run_result
 fi
+
+touch has_success_install

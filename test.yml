@@ -3,5 +3,9 @@
   hosts: all
   sudo: yes
   remote_user: vagrant
+  tasks:
+    - include: roles/test/tasks/sub.yml
+  vars:
+    - name: sub
   roles:
-    - test
+    - { role: test, name: sub1 }

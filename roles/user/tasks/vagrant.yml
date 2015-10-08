@@ -1,0 +1,15 @@
+---
+
+- name: "copy vagrant ssh file for work user"
+  shell: mkdir -p /home/{{ work_user }}/.ssh;
+         cp -f /home/vagrant/.ssh/authorized_keys /home/{{ work_user }}/.ssh/;
+         chown -R {{ work_user }}:{{ work_user }} /home/{{ work_user }}/.ssh;
+
+- name: "copy config file for user work"
+  shell: cp -rf /home/vagrant/{{ item }} /home/work/;
+         chown work:work /home/work/{{ item }};
+  with_items:
+#    - .bash_history
+    - .bash_logout
+    - .bashrc
+    - .profile

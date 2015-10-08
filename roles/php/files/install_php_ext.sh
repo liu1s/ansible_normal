@@ -25,7 +25,6 @@ if [ ! -d "$2" ];then
     tar zvxf "$2.tgz"
 fi
 
-cd $2
 
 configure_option=''
 grep_result=`echo $2 | grep memcached`
@@ -33,9 +32,15 @@ if [ "$grep_result" != "" ];then
     configure_option="--disable-memcached-sasl"
 fi
 
+cd $2
+
 grep_result=`echo $2 | grep xhprof`
 if [ "$grep_result" != "" ];then
     cd extension
+fi
+
+if [ -f has_success_install ];then
+    exit 0
 fi
 
 #configure php ext
@@ -53,3 +58,4 @@ if [ $run_result -ne 0 ];then
     exit $run_result
 fi    
 
+touch has_success_install

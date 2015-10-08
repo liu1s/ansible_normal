@@ -25,8 +25,8 @@
 
 - name: "copy install php shell"
   copy: src={{ item }} dest={{ script_dir }}/{{ item }}
-            owner={{ install_user }}
-            group={{ install_user }}
+            owner={{ work_user }}
+            group={{ work_user }}
             mode=0744
   with_items:
     - install_php.sh
@@ -54,22 +54,22 @@
   with_items:
       - install_rabbitmq.sh
 
-#- name: "install ext by shell"
-#  shell: bash {{ script_dir }}/install_php_ext.sh {{ download_dir }} {{ item }}
-#  with_items:
-#    - amqp-1.4.0
-#    - memcached-2.2.0
-#    - memcache-2.2.7
-#    - mongo-1.6.11
-#    - redis-2.2.7
-#    - xhprof-0.9.4
-#    - configman
-#    - phalcon
+- name: "install ext by shell"
+  shell: bash {{ script_dir }}/install_php_ext.sh {{ download_dir }} {{ item }}
+  with_items:
+    - amqp-1.4.0
+    - memcached-2.2.0
+    - memcache-2.2.7
+    - mongo-1.6.11
+    - redis-2.2.7
+    - xhprof-0.9.4
+    - configman
+    - phalcon
 
 - name: "copy php config file"
   template: src={{ item.name }} dest={{ item.dir }}/{{ item.name }}
-            owner={{ install_user }}
-            group={{ install_user }}
+            owner={{ work_user }}
+            group={{ work_user }}
             mode=0744
   with_items:
       - { name: 'php.ini', dir: '/usr/local/php/lib/' }
@@ -78,3 +78,4 @@
 
 - name: create some file
   shell: mkdir -p /home/work/logs/php
+         chmod 766 /home/work/logs/php

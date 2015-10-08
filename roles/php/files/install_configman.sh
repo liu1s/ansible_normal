@@ -13,6 +13,10 @@ fi
 
 cd configman_php_extension
 
+if [ -f has_success_install ];then
+    exit 0
+fi
+
 #configure php
 /usr/local/php/bin/phpize && ./configure --with-php-config=/usr/local/php/bin/php-config && make && make install;
 
@@ -21,3 +25,4 @@ if [ $run_result -ne 0 ];then
     exit $run_result
 fi
 
+touch has_success_install

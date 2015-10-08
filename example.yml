@@ -1,0 +1,26 @@
+---
+
+- name: common
+  hosts: all
+  sudo: yes
+  remote_user: vagrant
+  roles:
+    - common
+
+- name: test
+  hosts: all
+  sudo: yes
+  remote_user: vagrant
+  tasks:
+      - include: roles/user/tasks/vagrant.yml
+  roles:
+    - user
+
+- name: other
+  hosts: all
+  sudo: yes
+  remote_user: vagrant
+  roles:
+    - base_service
+    - base_service_manual
+    - php

@@ -3,5 +3,7 @@
   hosts: all
   sudo: yes
   remote_user: vagrant
+  tasks:
+      - include: roles/user/tasks/vagrant.yml
   roles:
     - user
