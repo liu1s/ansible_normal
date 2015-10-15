@@ -3,6 +3,7 @@
 
 #add group
 - group: name={{ work_user }} state=present
+- group: name=sudo state=present
 
 #add user
 #密码默认123456
@@ -21,3 +22,11 @@
 
 #remove user
 #- user: name=work state=absent remove=yes
+
+- name: "copy some config"
+  copy: src={{ item }} dest=/home/{{ work_user }}/{{ item }}
+        owner={{ work_user }}
+        group={{ work_user }}
+        mode=0744
+  with_items:
+    - .vimrc

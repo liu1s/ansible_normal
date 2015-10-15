@@ -1,2 +1,4 @@
+/usr/sbin/nginx
+/usr/local/php/sbin/php-fpm
 
 exit 0
